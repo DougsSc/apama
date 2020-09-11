@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_petsys_animais" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4dd29661-98f8-4f58-903b-614f6deb2e84">
+	<property name="ireport.zoom" value="1.1000000000000034"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="zebra Backcolor branco" isDefault="true" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean(($V{COLUMN_COUNT}.intValue() % 2) != 0)]]></conditionExpression>
+			<style mode="Transparent" backcolor="#E1E1E1"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="6759426f-3593-44fd-8dfb-1be95fb85ccb"/>
+	<subDataset name="Table Dataset 2" uuid="8d75c459-d9cd-4a0d-87bf-a4a9cf56e748"/>
+	<queryString>
+		<![CDATA[
+		$P!{sql}
+		/*
+		SELECT
+     	a.id AS animal_id,
+     	to_char(a.data_resgate, 'DD/MM/YYYY') AS animal_data_resgate,
+     	a.nome AS animal_nome,
+     	s.descricao AS animal_status_descricao,
+     	p.descricao AS animal_porte_descricao,
+    	(select COUNT(*) from animal a INNER JOIN animal_porte p on a.id_animal_porte = p.id
+    	INNER JOIN animal_status s on a.id_animal_status = s.id )  as total
+		FROM animal a INNER JOIN animal_porte p on a.id_animal_porte = p.id
+    	INNER JOIN animal_status s on a.id_animal_status = s.id
+		*/
+		]]>
+	</queryString>
+	<field name="animal_id" class="java.lang.Integer"/>
+	<field name="animal_data_resgate" class="java.lang.String"/>
+	<field name="animal_nome" class="java.lang.String"/>
+	<field name="animal_status_descricao" class="java.lang.String"/>
+	<field name="animal_porte_descricao" class="java.lang.String"/>
+	<field name="total" class="java.lang.Long"/>
+	<group name="animal_id">
+		<groupExpression><![CDATA[$F{animal_id}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="14" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="93" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" uuid="0a03fc48-b012-418e-8517-4702a70dd504"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Animais]]></text>
+			</staticText>
+			<!--<image>
+				<reportElement x="0" y="0" width="80" height="79" uuid="a35e7023-beea-4c99-9302-99a9354bf7ff"/>
+				<imageExpression><![CDATA["C:\\Users\\jorda\\Documents\\NetBeansProjects\\apamadesktop\\src\\main\\resources\\imagens\\animal.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="469" y="0" width="86" height="79" uuid="be09d005-3eb8-4477-8c06-a061e5ac4e2e"/>
+				<imageExpression><![CDATA["C:\\Users\\jorda\\Documents\\NetBeansProjects\\apamadesktop\\src\\main\\resources\\imagens\\logo_grande.png"]]></imageExpression>
+			</image>-->
+			<image>
+				<reportElement x="0" y="0" width="80" height="79" uuid="a35e7023-beea-4c99-9302-99a9354bf7ff"/>
+				<imageExpression><![CDATA["imagens/animal.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="469" y="0" width="86" height="79" uuid="be09d005-3eb8-4477-8c06-a061e5ac4e2e"/>
+				<imageExpression><![CDATA["imagens/logo_grande.png"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="69" height="35" backcolor="#50C6DD" uuid="77a1633b-e68a-4bda-9fa8-82abefa8e305"/>
+				<textElement verticalAlignment="Middle">
+					<font size="13" isBold="true" isItalic="false" isUnderline="false"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="69" y="0" width="174" height="35" backcolor="#50C6DD" uuid="31059db4-6ee9-42fd-819d-d71d79a36826"/>
+				<textElement verticalAlignment="Middle">
+					<font size="13" isBold="true" isItalic="false" isUnderline="false"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="243" y="0" width="126" height="35" backcolor="#50C6DD" uuid="1ba7bd2a-89c6-4e48-ae60-d47fce15d34e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="13" isBold="true" isItalic="false" isUnderline="false"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="369" y="0" width="79" height="35" backcolor="#50C6DD" uuid="a18e036d-97eb-4107-b667-001605c5763e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="13" isBold="true" isItalic="false" isUnderline="false"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Porte]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="448" y="0" width="107" height="35" backcolor="#50C6DD" uuid="55bdfcb7-df35-4499-9d28-b9dab1f0f287"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Data de resgate]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement style="zebra Backcolor branco" mode="Opaque" x="0" y="0" width="69" height="30" uuid="11a59b28-acb7-4f7f-89bb-27acf9bf916a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{animal_id}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="zebra Backcolor branco" mode="Opaque" x="448" y="0" width="107" height="30" uuid="096b1a4a-c819-4085-97c1-8745905fd98b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{animal_data_resgate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="zebra Backcolor branco" mode="Opaque" x="69" y="0" width="174" height="30" uuid="0fb58d46-efe4-47b0-a16c-b91206a93f47"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{animal_nome}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="zebra Backcolor branco" mode="Opaque" x="243" y="0" width="126" height="30" uuid="e54ff11a-9e0b-44d1-b18f-855b851ff447"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{animal_status_descricao}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="zebra Backcolor branco" mode="Opaque" x="369" y="0" width="79" height="30" uuid="b2bfa2b1-51d7-4177-a2df-c48ca5e51d04"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{animal_porte_descricao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="64" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="423" y="0" width="132" height="30" uuid="50f3102e-12b6-4d4a-b331-d1d5d83074d6"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="0" width="365" height="30" uuid="5427d75f-6038-4ed0-b887-a5cc2b5c0550"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Total de registros: "+$V{PAGE_COUNT}+" de "+$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="7" splitType="Stretch"/>
+	</summary>
+</jasperReport>

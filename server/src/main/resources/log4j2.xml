@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ERROR">
+    <Properties>
+        <Property name="pattern">%d{[dd/MM/yyyy HH:mm:ss - EEEE]} %p [%-c{1}] %m%n</Property>
+        <Property name="filePath">logs/</Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="RollingFile"
+                     fileName="${filePath}Apama.log"
+                     filePattern="${filePath}LiquiParqui-%d{dd-MM-yyyy-HH:mm:ss}-%i.log">
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+        <Console name="Console">
+            <PatternLayout pattern="${pattern}"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="Console"/>
+        </Root>
+          <Logger name="org.hibernate" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+        </Logger>
+    </Loggers> 
+</Configuration>
